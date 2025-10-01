@@ -7,7 +7,8 @@
 	</classpathentry>
 	<classpathentry kind="src" path="TEMARIO"/>
 	<classpathentry kind="src" path="TP1"/>
-	<classpathentry kind="src" path="TP3"/>
-	<classpathentry kind="src" path="TP4"/>
+	<classpathentry kind="src" path="TP3_Thread"/>
+	<classpathentry kind="src" path="TP4_Monitores"/>
+	<classpathentry kind="src" path="TP5_Runnable"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
