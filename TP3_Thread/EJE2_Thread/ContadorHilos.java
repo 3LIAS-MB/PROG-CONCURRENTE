@@ -1,5 +1,9 @@
 package EJE2_Thread;
 
+//	2) Dado un contador V inicializado en 100. Defina 2 hilos, un hilo que incremente 100 
+//	veces en 1 dicha variable y otro hilo que decremente 100 veces en 1 dicha variable. Al 
+//	finalizar imprima el valor final de V. 
+
 public class ContadorHilos {
     private int V = 100;
     

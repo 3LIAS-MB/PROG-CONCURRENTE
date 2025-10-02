@@ -2,6 +2,10 @@ package EJE3_Thread;
 
 import java.util.Random;
 
+//	3) Sobre el inciso anterior agregue un retardo aleatorio entre 50-150ms y observe los 
+//	resultados. NOTA: para los puntos 2 y 3 pruebe realizando una pausa o empleando el 
+//	método .join 
+
 public class ContadorConRetardo {
     private int V = 100;
     private Random random = new Random();

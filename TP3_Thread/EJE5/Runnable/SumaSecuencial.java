@@ -1,5 +1,25 @@
 package EJE5.Runnable;
 
+//	5) Implemente la ejecución del siguiente procedimiento: 
+//	
+//	public static double SumRootN(int root) {
+//	double result = 0;
+//	for (int i = 1; i < 10000000; i++) {
+//	    result += Math.exp(Math.log(i) / root);
+//	}
+//	return result;
+//	}
+//	
+//	a. Se le solicita que lo ejecute 20 veces de forma secuencial (para root entre [1-20]) 
+//	y calcule el tiempo de ejecución, y además revise el “Administrador de tareas” de 
+//	Windows para comprobar la utilización de la/las CPU/s. 
+//	
+//	b. Adicionalmente, implemente el mismo procedimiento pero mediante Hilos, 
+//	ejecutándolo 20 veces y revisando el “Administrador de tareas” de Windows para 
+//	comprobar la utilización de la/las CPU/s. 
+//	
+//	c. Indique el tiempo de ejecución de ambas alternativas. Comente los resultados. 
+
 public class SumaSecuencial {
     
     public static double SumRootN(int root) {

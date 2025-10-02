@@ -3,6 +3,13 @@ package EJE2;
 import java.util.concurrent.Semaphore;
 import java.util.Random;
 
+//	2) Realice un programa que simule un estacionamiento con capacidad para 20 automóviles. 
+//	Dicho estacionamiento posee dos entradas y dos salidas, un automóvil permanece un 
+//	tiempo y luego abandona el lugar, con lo cual tendrá que ser cuidadoso para controlar el 
+//	acceso a dicho estacionamiento de manera de bloquear a los autos que deseen ingresar 
+//	cuando la capacidad se ha completado. Simule la E/S de 100 automóviles. El 
+//	estacionamiento inicia vacío. 
+
 // Clase que representa el estacionamiento
 class Estacionamiento {
     private final int CAPACIDAD = 20;

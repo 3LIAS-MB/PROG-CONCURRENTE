@@ -2,29 +2,32 @@ package EJE4_Thread;
 
 import java.util.Scanner;
 
+//	4) Debe solicitar el ingreso de una frase por la entrada de teclado, a continuación (una vez 
+//	apretado Enter) deberá imprimir 10 veces dicha frase pero carácter por carácter 
+//	empleando hilos. 
+
+
 public class FraseConHilos {
     
-    // Hilo para imprimir un carácter específico
-    class HiloCaracter extends Thread {
-        private char caracter;
-        private int repeticiones;
+    // Hilo para imprimir la frase completa una vez
+    class HiloFrase extends Thread {
+        private String frase;
         
-        public HiloCaracter(char caracter, int repeticiones) {
-            this.caracter = caracter;
-            this.repeticiones = repeticiones;
+        public HiloFrase(String frase) {
+            this.frase = frase;
         }
         
         @Override
         public void run() {
-            for (int i = 0; i < repeticiones; i++) {
-                System.out.print(caracter);
+            for (char c : frase.toCharArray()) {
+                System.out.print(c);
                 try {
-                    // Pequeña pausa para ver mejor el efecto
-                    Thread.sleep(10);
+                    Thread.sleep(20); // Pausa entre caracteres
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            System.out.println(); // Salto de línea al terminar
         }
     }
     
@@ -34,40 +37,31 @@ public class FraseConHilos {
         System.out.print("Ingrese una frase: ");
         String frase = scanner.nextLine();
         
-        System.out.println("\nImprimiendo 10 veces carácter por carácter:");
-        System.out.println("============================================");
+        System.out.println("\nImprimiendo 10 veces con hilos:");
+        System.out.println("================================");
         
-        for (int vez = 1; vez <= 10; vez++) {
-            System.out.print("Vez " + vez + ": ");
-            
-            // Crear un hilo por cada carácter de la frase
-            Thread[] hilos = new Thread[frase.length()];
-            
-            for (int i = 0; i < frase.length(); i++) {
-                char c = frase.charAt(i);
-                hilos[i] = new HiloCaracter(c, 1);
-                hilos[i].start();
+        // Crear 10 hilos, uno por cada repetición
+        Thread[] hilos = new Thread[10];
+        
+        for (int i = 0; i < 10; i++) {
+            hilos[i] = new HiloFrase(frase);
+            hilos[i].start();
+        }
+        
+        // Esperar que todos los hilos terminen
+        for (Thread hilo : hilos) {
+            try {
+                hilo.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            
-            // Esperar que todos los hilos terminen
-            for (Thread hilo : hilos) {
-                try {
-                    hilo.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            
-            System.out.println(); // Salto de línea después de cada frase
         }
         
         scanner.close();
     }
     
     public static void main(String[] args) {
-        System.out.println("=== PUNTO 4 - FRASE CARÁCTER POR CARÁCTER CON HILOS ===");
-        
-        FraseConHilos fraseHilos = new FraseConHilos();
-        fraseHilos.ejecutar();
+        FraseConHilos app = new FraseConHilos();
+        app.ejecutar();
     }
 }

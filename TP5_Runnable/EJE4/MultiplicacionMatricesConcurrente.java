@@ -2,6 +2,30 @@ package EJE4;
 
 import java.util.Random;
 
+//	4) Cree una rutina que realice la multiplicación de dos matrices (AxB = C) de forma 
+//	concurrente. Para ello debe tener en cuenta lo siguiente: 
+//	a. La matriz A será de 20x15 y la matriz B será de 15x20, con lo cual la matriz C 
+//	será de 20x20 previamente definida. 
+//	b. Ambas matrices deben inicializarse con números enteros aleatorios entre [5-15]. 
+//	c. La matriz resultante (C) será el objeto a sincronizar. 
+//	d. Debe existir una clase (CalculoConcurrente) que implemente la interfaz Runnable 
+//	que realice el cálculo de la multiplicación de los vectores (A[1][1-15] x B[1-15][1]), y 
+//	cada resultado se irá ingresando en la matriz C según la conversión que se indica 
+//	en el inciso “e”, por ello la necesidad de sincronizar los accesos a este objeto. 
+//	e. Además la clase CalculoConcurrente debe heredar de la clase Operaciones que 
+//	posee un método para cálculo de raíces que es el siguiente: 
+//	
+//	public static double SumRootN(int root) {
+//		double result = 0;
+//		for (int i = 0; i ‹ 10000000; i++) {
+//			result += Math.exp(Math.Log(i) / root);
+//		}
+//	return result;
+//	｝
+//
+//	f. Debe mostrar ambas matrices al inicio y el resultado al final del proceso. 
+//	g. Calcule y muestre el tiempo de ejecución del proceso.
+	
 //Clase base con método de cálculo de raíces
 class Operaciones {
  public static double SumRootN(int root) {

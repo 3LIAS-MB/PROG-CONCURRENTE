@@ -1,5 +1,11 @@
 package EJE6_Thread;
 
+//6) Defina 2 matrices. Matriz A de 100 x 200 y matriz B de 200 x 100. Inicialice ambas con 
+//números aleatorios (1-100). Luego realice el intercambio de forma concurrente de cada 
+//fila de A a su correspondiente columna en B y viceversa (cada columna de B a su 
+//correspondiente fila en A) sin perder la información en el pasaje. Muestre las matrices 
+//antes y después del intercambio. 
+
 import java.util.Random;
 
 public class IntercambioMatricesConcurrente {
@@ -13,7 +19,7 @@ public class IntercambioMatricesConcurrente {
     private Random random;
     
     public IntercambioMatricesConcurrente() {
-        random = new Random();
+        random = new Random();	
         matrizA = new int[FILAS_A][COLUMNAS_A];
         matrizB = new int[FILAS_B][COLUMNAS_B];
     }

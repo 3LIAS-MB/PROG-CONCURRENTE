@@ -7,6 +7,16 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//	3) Dentro de la sección policiales del diario El Tribuno de Jujuy 
+//	(https://eltribunodejujuy.com/seccion/policiales), seleccione los enlaces de 10 noticias y 
+//	cárguelos en un array. Cree una tarea que tenga como atributo dicho array y desde el 
+//	main() lance 10 hilos para ejecutar dicha tarea. Esta tarea lo que hará es tomar el ID del 
+//	array de noticias pasado desde el main(), realizará una petición HTTP Request y obtendrá 
+//	la nota. Dentro de cada nota existe una sección (<DIV></DIV) llamado <div 
+//	class="articulo__cuerpo "> </div>. Dentro de ese DIV está el cuerpo de la noticia, que es 
+//	lo que nos interesa. Luego, a medida que vaya terminando cada hilo de ejecutarse, debe 
+//	imprimir por pantalla el cuerpo de la noticia encontrado. Muestre el tiempo de ejecución.
+
 // Tarea que descarga y procesa una noticia
 class TareaNoticia implements Runnable {
     private final String[] urlNoticias;

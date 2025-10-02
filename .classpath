@@ -10,5 +10,6 @@
 	<classpathentry kind="src" path="TP3_Thread"/>
 	<classpathentry kind="src" path="TP4_Monitores"/>
 	<classpathentry kind="src" path="TP5_Runnable"/>
+	<classpathentry kind="src" path="TP6_Semaphore"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
