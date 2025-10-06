@@ -28,36 +28,32 @@ class ControladorCabinas {
         disponibles = new boolean[numCabinas];
         
         for (int i = 0; i < numCabinas; i++) {
-            cabinas[i] = new Semaphore(1); // Cada cabina con 1 permiso
+            cabinas[i] = new Semaphore(1);
             disponibles[i] = true;
         }
     }
     
-    // Marcar una cabina como no disponible
     public void bloquearCabina(int numeroCabina) throws InterruptedException {
         cabinas[numeroCabina].acquire();
         disponibles[numeroCabina] = false;
     }
     
-    // Habilitar una cabina bloqueada
     public void habilitarCabina(int numeroCabina) {
         disponibles[numeroCabina] = true;
         cabinas[numeroCabina].release();
     }
     
-    // Intentar adquirir cualquier cabina disponible
     public int adquirirCabina() throws InterruptedException {
         while (true) {
             for (int i = 0; i < cabinas.length; i++) {
                 if (disponibles[i] && cabinas[i].tryAcquire()) {
-                    return i; // Retorna el número de cabina adquirida
+                    return i;
                 }
             }
-            Thread.sleep(50); // Pequeña espera antes de reintentar
+            Thread.sleep(50);
         }
     }
     
-    // Liberar una cabina específica
     public void liberarCabina(int numeroCabina) {
         cabinas[numeroCabina].release();
     }
@@ -78,15 +74,15 @@ class ClientePeajeB extends Thread {
     @Override
     public void run() {
         try {
-            // Adquirir una cabina disponible
             int numeroCabina = controlador.adquirirCabina();
-            System.out.println("[" + LocalTime.now().format(formatter) + "] Cliente " + numeroCliente + " - COMIENZA atención en CABINA " + (numeroCabina + 1));
+            System.out.println("[" + LocalTime.now().format(formatter) + "] Cliente " +
+            numeroCliente + " comienza atencion en cabina " + (numeroCabina + 1));
             
-            // Tiempo de atención entre 1 y 3 segundos
             int tiempoAtencion = 1000 + random.nextInt(2000);
             Thread.sleep(tiempoAtencion);
             
-            System.out.println("[" + LocalTime.now().format(formatter) + "] Cliente " + numeroCliente + " - FINALIZA atención en CABINA " + (numeroCabina + 1));
+            System.out.println("[" + LocalTime.now().format(formatter) + "] Cliente " +
+            numeroCliente + " finaliza atencion en cabina " + (numeroCabina + 1));
             controlador.liberarCabina(numeroCabina);
             
         } catch (InterruptedException e) {
@@ -97,40 +93,30 @@ class ClientePeajeB extends Thread {
 
 public class PeajeIntentoB {
     public static void main(String[] args) {
-        System.out.println("==============================================");
-        System.out.println("INTENTO B: Peaje individualizando cabinas");
-        System.out.println("==============================================");
-        System.out.println("3 cabinas | 50 autos en cola\n");
-        
         ControladorCabinas controlador = new ControladorCabinas(3);
         
-        // Bloquear la cabina 3 (índice 2) inicialmente
         try {
-            System.out.println(">>> Empleado de CABINA 3 fue al baño...\n");
             controlador.bloquearCabina(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
-        // Crear 50 clientes
+        	
         ClientePeajeB[] clientes = new ClientePeajeB[50];
         for (int i = 0; i < 50; i++) {
             clientes[i] = new ClientePeajeB(i + 1, controlador);
             clientes[i].start();
         }
         
-        // Habilitar la cabina 3 después de 15 segundos
         new Thread(() -> {
             try {
                 Thread.sleep(15000);
                 controlador.habilitarCabina(2);
-                System.out.println("\n>>> Empleado regresó! CABINA 3 ahora disponible\n");
+                System.out.println("Cabina 3 disponible");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }).start();
         
-        // Esperar a que todos terminen
         for (int i = 0; i < 50; i++) {
             try {
                 clientes[i].join();
@@ -139,6 +125,6 @@ public class PeajeIntentoB {
             }
         }
         
-        System.out.println("\n=== TODOS LOS CLIENTES FUERON ATENDIDOS ===");
+        System.out.println("Todos los clientes atendidos");
     }
 }
