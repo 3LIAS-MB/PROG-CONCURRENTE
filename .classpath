@@ -11,5 +11,8 @@
 	<classpathentry kind="src" path="TP4_Monitores"/>
 	<classpathentry kind="src" path="TP5_Runnable"/>
 	<classpathentry kind="src" path="TP6_Semaphore"/>
+	<classpathentry kind="src" path="TP7_ExecutorFlamrwork"/>
+	<classpathentry kind="src" path="PARCIAL"/>
+	<classpathentry kind="src" path="PARCIAL2"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
