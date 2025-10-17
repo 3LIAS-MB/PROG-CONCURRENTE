@@ -1,0 +1,79 @@
+package EJE9;
+
+import java.util.Random;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class Ejercicio9_Confiteria_Runnable {
+    
+    private static Random random = new Random();
+    private static AtomicInteger contadorClientes = new AtomicInteger(0);
+    private static Semaphore menuListoSemaphore = new Semaphore(0); // Para sincronizar menú listo
+    
+    public static void main(String[] args) {
+        // Generar clientes indefinidamente
+        while (true) {
+            try {
+                Thread.sleep(1000 + random.nextInt(501)); // Entre 1000-1500ms
+                
+                int numCliente = contadorClientes.incrementAndGet();
+                Runnable cliente = new ClienteRunnable(numCliente);
+                new Thread(cliente).start();
+                
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    static class ClienteRunnable implements Runnable {
+        private int numCliente;
+        private String tipoPedido;
+        private int tiempoElaboracion;
+        
+        public ClienteRunnable(int numCliente) {
+            this.numCliente = numCliente;
+            // Decidir tipo de pedido
+            if (random.nextBoolean()) {
+                tipoPedido = "Menú simple";
+                tiempoElaboracion = 300 + random.nextInt(201); // 300-500ms
+            } else {
+                tipoPedido = "Menú con postre";
+                tiempoElaboracion = 400 + random.nextInt(201); // 400-600ms
+            }
+        }
+        
+        @Override
+        public void run() {
+            try {
+                System.out.println("Cliente " + numCliente + " llegó y pidió: " + tipoPedido);
+                
+                // Preparar el menú (en otro hilo implícito o simulado aquí)
+                Runnable preparacion = () -> {
+                    try {
+                        Thread.sleep(tiempoElaboracion);
+                        System.out.println("Cliente " + numCliente + " - Su " + tipoPedido + " está listo");
+                        menuListoSemaphore.release(); // Señalizar que está listo
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                };
+                new Thread(preparacion).start();
+                
+                // Cliente espera si el menú no está listo
+                System.out.println("Cliente " + numCliente + " está esperando su pedido");
+                menuListoSemaphore.acquire(); // Espera hasta que esté listo
+                
+                // Tiempo de atención (retirar el pedido)
+                int tiempoAtencion = 100 + random.nextInt(301); // 100-400ms
+                System.out.println("Cliente " + numCliente + " está siendo atendido");
+                Thread.sleep(tiempoAtencion);
+                
+                System.out.println("Cliente " + numCliente + " se retira con su " + tipoPedido);
+                
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
